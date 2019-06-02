@@ -1,19 +1,24 @@
 {
-  "name": "niem-cr-qa",
+  "name": "niem-mapping",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Support for NIEM mapping spreadsheets.",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:json && jest",
+    "test:json": "node scripts/testSuite.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "exceljs": "^1.9.0",
+    "file-saver": "^2.0.2",
+    "niem": "github:cdmgtri/niem",
+    "niem-qa": "github:cdmgtri/niem-qa",
     "xlsx": "^0.14.2"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.0",
     "@types/jest": "^24.0.11",
     "jest": "^24.7.1"
   }

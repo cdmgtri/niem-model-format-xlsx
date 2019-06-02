@@ -1,51 +1,71 @@
 
-# NIEM Change Request (CR) QA
+# NIEM Mapping
 
-This project runs QA tests on a NIEM Change Request spreadsheet.
+This project provides support for spreadsheets following the NIEM Mapping template.
 
-## Steps
+## Features
 
-- [x] Read spreadsheet
-- [x] Basic QA
-  - [x] Check tab names
-  - [x] Check column headers
-  - [x] Change description
-  - [x] Change codes
-  - [x] Required fields per change code / component style
-  - [x] Check for local duplicates
-  - [x] Check that local references exist
-- [ ] Compare against NIEM
-  - [ ] Check that NIEM references exist
-  - [ ] Check that NIEM components are not duplicated
-  - [ ] Check for basic harmonization (same name, different namespace)
-- [ ] Misc
-  - [x] Add facet kind to label
-  - [ ] Add 1 to rownum
-  - [ ] Add warning vs error to results
-  - [ ] Set up test details better
-  - [ ] Set up as class
-  - [ ] CLI
-- [x] Save results to spreadsheet
-- [ ] Use template to save results
-  - [ ] Try reading tab, adding data, and writing back out
-- [ ] CI
-  - [ ] Jest
-  - [ ] Travis
-  - [ ] Coveralls
-- [ ] Add UI
-  - [ ] upload spreadsheet
-  - [ ] display results
-  - [ ] download results
-  - [ ] status info
-- [ ] Apply changes into NIEM model
+### Check format
+
+A spreadsheet must follow the NIEM Mapping template in order to be processed.  These checks ensure that the format is correct and that required values have been provided.
+
+- Check for required tabs
+- Check for required columns
+- Check for required values
+- Check for valid mapping codes
+- Check that name columns do not have qualified values
+- Check that qname columns do have qualified values
+
+### Load data
+
+Loads data from the spreadsheet into reusable NIEM model objects.
+
+*Status: Currently only loads data for `add` operations from the `Type`, `Codes`, and `Namespace` tabs.*
+
+### NIEM QA tests
+
+Runs NIEM QA tests on the loaded data.  QA tests run on NIEM model objects and are located in their own project for better reusability.  See [niem-qa](https://github.com/cdmgtri/niem-qa) for more.
+
+*Status: Currently only implements tests for types (CSC and simple only) and facets.*
+
+## Test Suite
+
+Review the [tests.xlsx](./tests.xlsx) spreadsheet to review tests and their implementation status.
+
+*Status: Still under development*
+
+## App
+
+See the online [NIEM Mapping app](https://cdmgtri.github.io/niem-mapping-app/) for an easy user interface for the project.  Select one of the demos to try the project out with one of the sample spreadsheets.  The source code for the app is available at [niem-mapping-app](https://github.com/cdmgtri/niem-mapping-app).
+
+## Installation
+
+```sh
+npm i cdmgtri/niem-mapping
+```
+
+## To Do
+
+- [ ] Refactor `tests.xlsx`
+  - [ ] Spreadsheet-specific tests should stay here
+  - [ ] Model tests should move to niem-qa
+- [ ] Info tab
+  - [ ] Review the MPD catalog for additional fields
+  - [ ] Add tests
+- [ ] Review code
+- [ ] Save and format results
+- [ ] Add usage info to this README
 
 ## Implemented Tabs
 
+- [ ] Info
 - [ ] Property
 - [ ] Type
   - [x] Simple (adds only)
   - [x] CSC (adds only)
   - [ ] CCC
+  - [ ] Simple list
+  - [ ] Simple union
 - [ ] Type contains property
 - [x] Facet (adds only)
 - [ ] Namespace
