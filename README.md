@@ -1,6 +1,9 @@
 
 # NIEM Mapping
 
+[![Build Status](https://travis-ci.org/cdmgtri/niem-mapping.svg?branch=dev)](https://travis-ci.org/cdmgtri/niem-mapping)
+[![Coverage Status](https://coveralls.io/repos/github/cdmgtri/niem-mapping/badge.svg?branch=dev)](https://coveralls.io/github/cdmgtri/niem-mapping?branch=dev)
+
 This project provides support for spreadsheets following the NIEM Mapping template.
 
 ## Features
