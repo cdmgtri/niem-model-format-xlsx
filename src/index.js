@@ -10,7 +10,6 @@ let runSpreadsheetQA = require("./qa/index");
 let BLANK = "";
 let ROW_NUM = "__rowNum__";
 
-let niem = new NIEM();
 let { Release, Type, Facet, Namespace } = NIEM.ModelObjects;
 let { checkRelease, Test, Issue } = QA;
 let { tabs, TabType } = require("./spreadsheet/index");
@@ -26,6 +25,8 @@ class NIEMMapping {
    * @param {Buffer} buffer - NIEM mapping spreadsheet loaded into buffer
    */
   constructor(buffer) {
+
+    this.niem = new NIEM();
 
     this.tabs = tabs;
 
@@ -112,10 +113,14 @@ class NIEMMapping {
   /**
    * @todo Add other tab data
    * @todo Load base NIEM release
+   *
+   * @param {String} userName
+   * @param {String} modelName
+   * @param {String} releaseName
    */
-  async loadData() {
+  async loadData(userName="user", modelName="model", releaseName="release") {
 
-    this.data = await niem.releases.sandbox("user", "model", "release");
+    this.data = await this.niem.releases.sandbox(userName, modelName, releaseName);
 
     let typeCols = tabs.Type.cols;
 
