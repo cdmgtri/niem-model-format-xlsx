@@ -12,7 +12,7 @@ let ROW_NUM = "__rowNum__";
 
 let { Release, Type, Facet, Namespace } = NIEM.ModelObjects;
 let { checkRelease, Test, Issue } = QA;
-let { tabs, TabType } = require("./spreadsheet/index");
+let { Tabs, TabType } = require("./spreadsheet/index");
 
 /** @type {Test[]} */
 let testSuite = require("../tests.json");
@@ -28,7 +28,8 @@ class NIEMMapping {
 
     this.niem = new NIEM();
 
-    this.tabs = tabs;
+    /** @type {Tabs} */
+    this.tabs = JSON.parse(JSON.stringify(Tabs));
 
     /** @type {Test[]} */
     this.tests = JSON.parse(JSON.stringify(testSuite));
@@ -39,7 +40,7 @@ class NIEMMapping {
     /** @type {Release} */
     this.data;
 
-    this.loadSpreadsheet(buffer, this.tabs);
+    this.loadSpreadsheet(buffer);
 
   }
 
@@ -48,9 +49,8 @@ class NIEMMapping {
    * Loads data from the NIEM mapping spreadsheet
    *
    * @param {Buffer} spreadsheetBuffer - NIEM mapping spreadsheet read into buffer
-   * @param {tabs} tabs
    */
-  loadSpreadsheet(spreadsheetBuffer, tabs) {
+  loadSpreadsheet(spreadsheetBuffer) {
 
     let workbook = XLSX.read(spreadsheetBuffer, {type: "array"});
 
@@ -58,7 +58,7 @@ class NIEMMapping {
     let colTest = Test.run(this.tests, "spread-format-columns");
 
     // For each expected tab...
-    for (let [tabName, tab] of Object.entries(tabs)) {
+    for (let [tabName, tab] of Object.entries(this.tabs)) {
 
       // Load the tab from the workbook
       let sheet = workbook.Sheets[tab.name];
@@ -85,7 +85,7 @@ class NIEMMapping {
 
     if (this.issueCount == 0) {
       this.validFormat = true;
-      runSpreadsheetQA(this.tests, tabs);
+      runSpreadsheetQA(this.tests, this.tabs);
     }
 
   }
@@ -122,9 +122,9 @@ class NIEMMapping {
 
     this.data = await this.niem.releases.sandbox(userName, modelName, releaseName);
 
-    let typeCols = tabs.Type.cols;
+    let typeCols = this.tabs.Type.cols;
 
-    for (let row of tabs.Type.rows) {
+    for (let row of this.tabs.Type.rows) {
       if (row[typeCols.Code] == "add") {
         let type = new Type(null,
           row[typeCols.TargetPrefix],
@@ -133,15 +133,15 @@ class NIEMMapping {
           row[typeCols.TargetStyle] || "object",
           row[typeCols.TargetBase]
         );
-        type.source = getSource(tabs.Type, row);
+        type.source = getSource(this.tabs.Type, row);
         await this.data.types.add(type);
       }
     }
 
 
-    let facetCols = tabs.Facet.cols;
+    let facetCols = this.tabs.Facet.cols;
 
-    for (let row of tabs.Facet.rows) {
+    for (let row of this.tabs.Facet.rows) {
       if (row[facetCols.Code] == "add") {
         let facet = new Facet(null,
           row[facetCols.TargetPrefix] + ":" + row[facetCols.TargetName],
@@ -149,15 +149,15 @@ class NIEMMapping {
           row[facetCols.TargetDefinition],
           row[facetCols.TargetKind] || "enumeration"
         );
-        facet.source = getSource(tabs.Facet, row);
+        facet.source = getSource(this.tabs.Facet, row);
         await this.data.facets.add(facet);
       }
     }
 
 
-    let nsCols = tabs.Namespace.cols;
+    let nsCols = this.tabs.Namespace.cols;
 
-    for (let row of tabs.Namespace.rows) {
+    for (let row of this.tabs.Namespace.rows) {
       if (row[nsCols.Code] == "add") {
         let ns = new Namespace(null,
           row[nsCols.TargetPrefix],
@@ -167,7 +167,7 @@ class NIEMMapping {
           row[nsCols.TargetDraftVersion],
           row[nsCols.TargetStyle]
         );
-        ns.source = getSource(tabs.Namespace, row);
+        ns.source = getSource(this.tabs.Namespace, row);
         await this.data.namespaces.add(ns);
       }
     }

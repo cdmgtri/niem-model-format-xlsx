@@ -183,7 +183,7 @@ let MetadataColumns = {
   TargetAppliesToName: "Applies to Type Name 2",
 };
 
-let tabs = {
+let Tabs = {
 
   Info: {
     name: "Info",
@@ -267,7 +267,7 @@ let FACET_KINDS = ["enumeration", "length", "minLength", "maxLength", "pattern",
 
 
 module.exports = {
-  tabs,
+  Tabs,
   TabType,
   CODES: ["add", "edit", "delete", "comment", "no change", "map", "subset", "no match", "documentation", "clear"],
   /** @type {"add"|"edit"|"delete"|"comment"|"no change"|"map"|"subset"|"no match"|"documentation"|"clear"} */

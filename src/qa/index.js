@@ -1,5 +1,5 @@
 
-let { tabs, TabType, CODES, CodeType, CONTENT_STYLES, FACET_KINDS  } = require("../spreadsheet/index");
+let { Tabs, TabType, CODES, CodeType, CONTENT_STYLES, FACET_KINDS  } = require("../spreadsheet/index");
 
 let { Test, Issue } = require("niem-qa");
 
@@ -11,7 +11,7 @@ let ROW_NUM = "__rowNum__";
  * Runs general mapping spreadsheet tests.
  *
  * @param {Test[]} tests
- * @param {tabs} tabs
+ * @param {Tabs} tabs
  */
 function qa(tests, tabs) {
 
@@ -31,7 +31,7 @@ function qa(tests, tabs) {
  * Checks each row in each of the tabs for invalid mapping codes.
  *
  * @param {Test[]} tests
- * @param {tabs} tabs
+ * @param {Tabs} tabs
  */
 function checkValidMappingCodes(tests, tabs) {
 
@@ -60,7 +60,7 @@ function checkValidMappingCodes(tests, tabs) {
 
 /**
  * @param {Test[]} tests
- * @param {tabs} tabs
+ * @param {Tabs} tabs
  */
 function checkSpreadsheetRequiredFields(tests, tabs) {
 
@@ -252,7 +252,7 @@ function checkTabRequiredFields(test, tab, codes, labelCol, requiredCols) {
 
 /**
  * @param {Test[]} tests
- * @param {tabs} tabs
+ * @param {Tabs} tabs
  */
 function checkNameFields(tests, tabs) {
 
@@ -301,7 +301,7 @@ function checkNameFields(tests, tabs) {
 
 /**
  * @param {Test[]} tests
- * @param {tabs} tabs
+ * @param {Tabs} tabs
  */
 function checkQNameFields(tests, tabs) {
 
@@ -341,7 +341,7 @@ function checkQualifiedField(test, tab, col, qualified) {
 
 /**
  * @param {Test[]} tests
- * @param {tabs} tabs
+ * @param {Tabs} tabs
  */
 function checkTypes(tests, tabs) {
 
@@ -366,7 +366,7 @@ function checkTypes(tests, tabs) {
  * Checks that Facet tab for invalid values in the Facet Kind column.
  *
  * @param {Test[]} tests
- * @param {tabs} tabs
+ * @param {Tabs} tabs
  */
 function checkFacets(tests, tabs) {
 
