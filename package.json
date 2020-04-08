@@ -11,16 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "exceljs": "^1.9.0",
+    "exceljs": "^3.8.2",
     "file-saver": "^2.0.2",
-    "niem": "github:cdmgtri/niem",
-    "niem-qa": "github:cdmgtri/niem-qa",
-    "xlsx": "^0.14.2"
+    "niem-model": "github:cdmgtri/niem-model#dev",
+    "niem-model-qa": "github:cdmgtri/niem-model-qa#dev",
+    "xlsx": "^0.15.6"
   },
   "devDependencies": {
-    "@types/file-saver": "^2.0.0",
-    "@types/jest": "^24.0.11",
-    "coveralls": "^3.0.5",
-    "jest": "^24.7.1"
+    "@types/file-saver": "^2.0.1",
+    "@types/jest": "^25.2.1",
+    "coveralls": "^3.0.11",
+    "jest": "^25.3.0"
   }
 }
